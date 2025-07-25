@@ -28,8 +28,8 @@ router.put(
   "/",
   authGuard,
   userUpdateValidation(),
-  validate,
   imageUpload.single("profileImage"),
+  validate,
   update
 );
 router.get("/:id", getUserById);
