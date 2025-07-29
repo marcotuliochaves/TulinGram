@@ -21,6 +21,7 @@ const EditProfile = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [profileImage, setProfileImage] = useState("");
+  ("");
   const [bio, setBio] = useState("");
   const [previewImage, setPreviewImage] = useState("");
 
