@@ -50,8 +50,6 @@ export const getUserDetails = createAsyncThunk(
 
     const data = await userService.getUserDetails(id, token);
 
-    console.log(data);
-
     return data;
   }
 );
