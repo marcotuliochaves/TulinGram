@@ -26,6 +26,8 @@ const Navbar = () => {
 
   const dispatch = useDispatch();
 
+  const [query, setQuery] = useState("");
+
   const handleLogout = () => {
     dispatch(logout());
     dispatch(reset());
@@ -33,12 +35,26 @@ const Navbar = () => {
     navigate("/login");
   };
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+
+    if (query) {
+      return navigate(`/search?q=${query}`);
+    }
+  };
+
   return (
     <nav id="nav">
-      <Link to="/">TulinGram</Link>
-      <form id="search-form">
+      <Link to="/">
+        <h2>TulinGram</h2>
+      </Link>
+      <form id="search-form" onSubmit={handleSearch}>
         <BsSearch />
-        <input type="text" placeholder="Pesquisar..." />
+        <input
+          type="text"
+          placeholder="Pesquisar"
+          onChange={(e) => setQuery(e.target.value)}
+        />
       </form>
       <ul id="nav-links">
         {auth ? (
@@ -66,11 +82,12 @@ const Navbar = () => {
           </>
         ) : (
           <>
+            {" "}
             <li>
               <NavLink to="/login">Entrar</NavLink>
             </li>
             <li>
-              <NavLink to="/register">Registre-se</NavLink>
+              <NavLink to="/register">Cadastrar</NavLink>
             </li>
           </>
         )}
