@@ -36,16 +36,19 @@ O projeto foi construído para demonstrar boas práticas no desenvolvimento full
 ✅ Estatísticas básicas (seguidores, seguindo, publicações)
 
 🗺️ Roadmap  
-🚧 Em Desenvolvimento  
-🔄 Notificações em tempo real  
+🚧 Em Desenvolvimento    
 🔄 Internacionalização (i18n)  
-🔄 Suporte a tema claro/escuro
+🔄 Suporte a tema claro/escuro  
+🔄 Logout automático quando token está expirado.  
+🔄 Página de configurações
+🔄 Remover curtida de foto
 
 🔮 Futuras Implementações  
 ⏳ Sistema de mensagens diretas  
 ⏳ Stories (como no Instagram)  
 ⏳ Busca avançada com filtros  
-⏳ Histórico de atividades
+⏳ Histórico de atividades  
+⏳ Notificações em tempo real
 
 🛠️ Tecnologias Utilizadas
 
