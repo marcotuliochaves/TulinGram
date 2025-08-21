@@ -46,3 +46,23 @@ O projeto foi construído para demonstrar boas práticas no desenvolvimento full
 ⏳ Stories (como no Instagram)  
 ⏳ Busca avançada com filtros  
 ⏳ Histórico de atividades
+
+🛠️ Tecnologias Utilizadas
+
+Frontend  
+⚛️ React – Framework principal para construção da interface  
+🌐 React Router DOM – Roteamento e navegação entre páginas  
+🔔 Context API – Gerenciamento de estado global
+
+Backend  
+🟢 Node.js + Express – API REST  
+🍃 MongoDB + Mongoose – Banco de dados não relacional  
+🔐 JWT (JSON Web Token) – Autenticação e proteção de rotas  
+📦 Multer + Cloudinary – Upload e gerenciamento de imagens  
+🔒 Bcrypt – Criptografia de senhas
+
+👨‍💻 Autor  
+Marco Túlio Oliveira  
+📍 Uberaba/MG – Brasil  
+🔗 LinkedIn
+ | Portfólio
