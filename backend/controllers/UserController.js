@@ -13,7 +13,6 @@ const generateToken = (id) => {
     expiresIn: "7d",
   });
 };
-
 // Register user and sign in
 const register = async (req, res) => {
   const { name, email, password } = req.body;

@@ -287,7 +287,12 @@ export const photoSlice = createSlice({
         state.loading = false;
         state.success = true;
         state.error = null;
-        state.photos = action.payload;
+        state.photos = Array.isArray(action.payload) ? action.payload : [];
+      })
+      .addCase(getPhotos.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || true;
+        state.photos = []; // garante array para não quebrar o map
       })
       .addCase(searchPhotos.pending, (state) => {
         state.loading = true;

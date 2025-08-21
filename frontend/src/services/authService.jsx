@@ -1,4 +1,5 @@
 import { api, requestConfig } from "../utils/config";
+import { apiFetch } from "../services/apiFetch";
 
 // Register an user
 
@@ -6,16 +7,16 @@ const register = async (data) => {
   const config = requestConfig("POST", data);
 
   try {
-    const res = await fetch(api + "/users/register", config)
-      .then((res) => res.json())
-      .catch((err) => err);
+    const res = await apiFetch(api + "/users/register", config);
+    if (!res) return;
+    const json = await res.json();
 
-    if (res._id) {
-      localStorage.setItem("user", JSON.stringify(res));
+    if (json._id) {
+      localStorage.setItem("user", JSON.stringify(json));
     }
-    return res;
+    return json;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
@@ -27,19 +28,18 @@ const logout = () => {
 // Sign in an user
 const login = async (data) => {
   const config = requestConfig("POST", data);
-
   try {
-    const res = await fetch(api + "/users/login", config)
-      .then((res) => res.json())
-      .catch((err) => err);
+    const res = await apiFetch(api + "/users/login", config);
+    if (!res) return;
 
-    if (res._id) {
-      localStorage.setItem("user", JSON.stringify(res));
+    const json = await res.json();
+
+    if (json._id) {
+      localStorage.setItem("user", JSON.stringify(json));
     }
-
-    return res;
+    return json;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 

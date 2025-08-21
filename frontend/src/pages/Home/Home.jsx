@@ -38,7 +38,7 @@ const Home = () => {
   }
   return (
     <div id="home">
-      {photos &&
+      {Array.isArray(photos) &&
         photos.map((photo) => (
           <div key={photo._id}>
             <PhotoItem photo={photo} />
@@ -48,10 +48,10 @@ const Home = () => {
             </Link>
           </div>
         ))}
-      {photos && photos.length === 0 && (
+      {Array.isArray(photos) && photos.length === 0 && (
         <h2 className="no-photos">
-          Ainda não há fotos públicadas,{" "}
-          <Link to={`/users/${user._id}`}>Clique aqui</Link>{" "}
+          Ainda não há fotos publicadas,{" "}
+          {user && <Link to={`/users/${user._id}`}>Clique aqui</Link>}
         </h2>
       )}
     </div>

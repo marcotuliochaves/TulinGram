@@ -8,6 +8,7 @@ const initialState = {
   error: false,
   success: false,
   loading: false,
+  sessionExpiredShown: false,
 };
 
 // Register an user and sign in
@@ -15,12 +16,7 @@ export const register = createAsyncThunk(
   "auth/register",
   async (user, thunkAPI) => {
     const data = await authService.register(user);
-
-    // Check for errors
-    if (data.errors) {
-      return thunkAPI.rejectWithValue(data.errors[0]);
-    }
-
+    if (data.errors) return thunkAPI.rejectWithValue(data.errors[0]);
     return data;
   }
 );
@@ -33,14 +29,10 @@ export const logout = createAsyncThunk("auth/logout", async () => {
 // Sign an user
 export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
   const data = await authService.login(user);
-
-  // Check for errors
-  if (data.errors) {
-    return thunkAPI.rejectWithValue(data.errors[0]);
-  }
-
+  if (data.errors) return thunkAPI.rejectWithValue(data.errors[0]);
   return data;
 });
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -49,6 +41,12 @@ export const authSlice = createSlice({
       state.loading = false;
       state.error = false;
       state.success = false;
+    },
+    showSessionExpired: (state) => {
+      state.sessionExpiredShown = true;
+    },
+    resetSessionExpired: (state) => {
+      state.sessionExpiredShown = false;
     },
   },
   extraReducers: (builder) => {
@@ -68,7 +66,7 @@ export const authSlice = createSlice({
         state.error = action.payload;
         state.user = null;
       })
-      .addCase(logout.fulfilled, (state, action) => {
+      .addCase(logout.fulfilled, (state) => {
         state.loading = false;
         state.success = true;
         state.error = null;
@@ -92,5 +90,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { reset } = authSlice.actions;
+export const { reset, showSessionExpired, resetSessionExpired } =
+  authSlice.actions;
 export default authSlice.reducer;

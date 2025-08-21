@@ -1,10 +1,15 @@
 import "./App.css";
 
+import "react-toastify/dist/ReactToastify.css";
+
 // Router
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 // Hooks
 import { useAuth } from "./hooks/useAuth";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { showSessionExpired } from "./slices/authSlice";
 
 // Components
 import Navbar from "./components/Navbar";
@@ -18,14 +23,27 @@ import EditProfile from "./pages/EditProfile/EditProfile";
 import Profile from "./pages/Profile/Profile";
 import Photo from "./pages/Photo/Photo";
 import Search from "./pages/Search/Search";
+import SessionExpiredModal from "./components/SessionExpiredModal";
 
 function App() {
   const { auth, loading } = useAuth();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const handler = () => {
+      dispatch(showSessionExpired()); // Exibe modal ou faz logout
+    };
+
+    window.addEventListener("sessionExpired", handler);
+
+    return () => {
+      window.removeEventListener("sessionExpired", handler);
+    };
+  }, [dispatch]);
 
   if (loading) {
     return <p>Carregando...</p>;
   }
-
   return (
     <>
       <Navbar />
@@ -63,6 +81,7 @@ function App() {
       </div>
 
       <Footer />
+      <SessionExpiredModal />
     </>
   );
 }

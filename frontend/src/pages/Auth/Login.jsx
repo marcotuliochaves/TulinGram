@@ -34,6 +34,7 @@ const Login = () => {
   useEffect(() => {
     dispatch(reset());
   }, [dispatch]);
+
   return (
     <div id="login">
       <h2>TulinGram</h2>
