@@ -24,7 +24,6 @@ O projeto foi construído para demonstrar boas práticas no desenvolvimento **fu
 
 ### 🔐 Autenticação  
 - ✅ Registro e Login com autenticação **JWT**  
-- ✅ Logout automático quando o token expira  
 - ✅ Proteção de rotas privadas  
 
 ### 📸 Publicações  
