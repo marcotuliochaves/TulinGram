@@ -24,17 +24,19 @@
 }
 
 .photos-container {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 10px;
 }
 
 .photo {
-  width: 32%;
-  margin: 0.3%;
+  margin: 0;
 }
 
 .photo img {
   width: 100%;
+  height: 250px;
+  object-fit: cover;
 }
 
 .actions {
@@ -54,4 +56,119 @@
 .edit-photo img {
   width: 100%;
   margin-bottom: 1em;
+}
+
+/* New photo button */
+
+.add-photo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(34, 32, 32, 0.2);
+  border-radius: 12px;
+  height: 250px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.add-photo:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+}
+
+.plus-icon {
+  font-size: 48px;
+  color: #ffffff;
+}
+
+/* New photo form modal */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 15, 15, 0.6);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  position: relative;
+  background: #1e1e1e;
+  padding: 2em;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  color: white;
+}
+
+.modal-content h3 {
+  margin-bottom: 1em;
+}
+
+.modal-content input[type="text"],
+.modal-content input[type="file"],
+.modal-content input[type="submit"] {
+  width: 100%;
+  margin-bottom: 1em;
+}
+
+.cancel-btn {
+  background: transparent;
+  color: #ccc;
+  border: none;
+  cursor: pointer;
+  margin-top: 1em;
+}
+
+.close-modal {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  width: 32px;
+  height: 32px;
+  font-size: 28px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.close-modal:hover {
+  color: #ff4d4d;
+}
+
+.image-preview img {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.drop-zone {
+  border: 2px dashed #aaa;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.drop-zone:hover {
+  background-color: #202020ef;
+}
+
+.drop-zone input[type="file"] {
+  pointer-events: none;
 }

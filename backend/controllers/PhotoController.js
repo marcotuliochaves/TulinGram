@@ -41,7 +41,7 @@ const deletePhoto = async (req, res) => {
   }
 
   try {
-    // Busca a foto pelo ID
+    // Search a photo by id
     const photo = await Photo.findById(id);
 
     if (!photo) {

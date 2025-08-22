@@ -36,6 +36,10 @@ const Profile = () => {
     error: errorPhoto,
   } = useSelector((state) => state.photo);
 
+  //Hide or show the form for new photo
+
+  const [previewImage, setPreviewImage] = useState("");
+
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
 
@@ -46,6 +50,7 @@ const Profile = () => {
   // New form and edit form refs
   const newPhotoForm = useRef();
   const editPhotoForm = useRef();
+  const [showModal, setShowModal] = useState(false);
 
   // Load user data
   useEffect(() => {
@@ -56,15 +61,36 @@ const Profile = () => {
   }, [dispatch, id]);
 
   const handleFile = (e) => {
-    const image = e.target.files[0];
+    const file = e.target.files[0];
+    setImage(file);
 
-    setImage(image);
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setPreviewImage("");
+    }
   };
-
   const resetComponentMessage = () => {
     setTimeout(() => {
       dispatch(resetMessage());
     }, 2000);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
+    if (file) {
+      setImage(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const submitHandle = (e) => {
@@ -103,6 +129,14 @@ const Profile = () => {
     newPhotoForm.current.classList.toggle("hide");
     editPhotoForm.current.classList.toggle("hide");
   };
+
+  useEffect(() => {
+    if (!showModal) {
+      setTitle("");
+      setImage("");
+      setPreviewImage("");
+    }
+  }, [showModal]);
 
   // Update a photo
   const handleUpdate = (e) => {
@@ -148,30 +182,8 @@ const Profile = () => {
         </div>
       </div>
       {id === userAuth._id && (
+        //Hidden form for new photo
         <>
-          <div className="new-photo" ref={newPhotoForm}>
-            <h3>Compartilhe algum momento seu:</h3>
-            <form onSubmit={submitHandle}>
-              <label>
-                <span>Título para a foto:</span>
-                <input
-                  type="text"
-                  placeholder="Insira um título"
-                  onChange={(e) => setTitle(e.target.value)}
-                  value={title || ""}
-                />
-              </label>
-              <label>
-                <span>Imagem:</span>
-                <input type="file" onChange={handleFile} />
-              </label>
-              {!loadingPhoto && <input type="submit" value="Postar" />}
-              {loadingPhoto && (
-                <input type="submit" disabled value="Aguarde..." />
-              )}
-            </form>
-          </div>
-
           <div className="edit-photo hide" ref={editPhotoForm}>
             <p>Editando:</p>
             {editImage && (
@@ -198,6 +210,11 @@ const Profile = () => {
       <div className="user-photos">
         <h2>Fotos publicadas:</h2>
         <div className="photos-container">
+          {id === userAuth._id && (
+            <div className="photo add-photo" onClick={() => setShowModal(true)}>
+              <span className="plus-icon">+</span>
+            </div>
+          )}
           {photos &&
             photos.map((photo) => (
               <div className="photo" key={photo._id}>
@@ -224,6 +241,72 @@ const Profile = () => {
             ))}
           {photos.length === 0 && <p>Ainda não há fotos publicadas</p>}
         </div>
+        {showModal && (
+          <div className="modal-overlay" onClick={() => setShowModal(false)}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+              <button
+                className="close-modal"
+                onClick={() => setShowModal(false)}
+              >
+                &times;
+              </button>
+              <h3>Compartilhe um momento:</h3>
+              <form onSubmit={submitHandle}>
+                <label>
+                  <span>Título:</span>
+                  <input
+                    type="text"
+                    placeholder="Insira um título"
+                    onChange={(e) => setTitle(e.target.value)}
+                    value={title || ""}
+                  />
+                </label>
+                <label>
+                  <span>Imagem:</span>
+                  <div
+                    className="drop-zone"
+                    onDragOver={(e) => e.preventDefault()}
+                    onDrop={handleDrop}
+                  >
+                    <p>Arraste uma imagem aqui ou clique para selecionar</p>
+                    <input
+                      type="file"
+                      id="fileInput"
+                      style={{ display: "none" }}
+                      accept="image/*"
+                      onChange={handleFile}
+                    />
+                  </div>
+                </label>
+                {previewImage && (
+                  <div className="image-preview">
+                    <p>Prévia da imagem:</p>
+                    <img
+                      src={previewImage}
+                      alt="Prévia"
+                      style={{
+                        maxWidth: "100%",
+                        marginTop: "10px",
+                        borderRadius: "8px",
+                      }}
+                    />
+                  </div>
+                )}
+                {!loadingPhoto && <input type="submit" value="Postar" />}
+                {loadingPhoto && (
+                  <input type="submit" disabled value="Aguarde..." />
+                )}
+                <button
+                  type="button"
+                  className="cancel-btn"
+                  onClick={() => setShowModal(false)}
+                >
+                  Cancelar
+                </button>
+              </form>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
