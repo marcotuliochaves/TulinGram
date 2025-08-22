@@ -46,6 +46,7 @@ const Profile = () => {
   const [editId, setEditId] = useState("");
   const [editImage, setEditImage] = useState("");
   const [editTitle, setEditTitle] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
 
   // New form and edit form refs
   const newPhotoForm = useRef();
@@ -59,6 +60,14 @@ const Profile = () => {
       dispatch(getUserPhotos(id));
     }
   }, [dispatch, id]);
+
+  useEffect(() => {
+    if (!showModal) {
+      setTitle("");
+      setImage("");
+      setPreviewImage("");
+    }
+  }, [showModal]);
 
   const handleFile = (e) => {
     const file = e.target.files[0];
@@ -130,14 +139,6 @@ const Profile = () => {
     editPhotoForm.current.classList.toggle("hide");
   };
 
-  useEffect(() => {
-    if (!showModal) {
-      setTitle("");
-      setImage("");
-      setPreviewImage("");
-    }
-  }, [showModal]);
-
   // Update a photo
   const handleUpdate = (e) => {
     e.preventDefault();
@@ -153,13 +154,10 @@ const Profile = () => {
 
   // Open edit form
   const handleEdit = (photo) => {
-    if (editPhotoForm.current.classList.contains("hide")) {
-      hideOrShowForms();
-    }
-
     setEditId(photo._id);
     setEditTitle(photo.title);
     setEditImage(photo.image);
+    setIsEditing(true);
   };
 
   const handleCancelEdit = (e) => {
@@ -184,24 +182,29 @@ const Profile = () => {
       {id === userAuth._id && (
         //Hidden form for new photo
         <>
-          <div className="edit-photo hide" ref={editPhotoForm}>
-            <p>Editando:</p>
-            {editImage && (
-              <img src={`${uploads}/photos/${editImage}`} alt={editTitle} />
-            )}
-            <form onSubmit={handleUpdate}>
-              <input
-                type="text"
-                placeholder="Insira o novo título"
-                onChange={(e) => setEditTitle(e.target.value)}
-                value={editTitle || ""}
-              />
-              <input type="submit" value="Atualizar" />
-              <button className="cancel-btn" onClick={handleCancelEdit}>
-                Cancelar edição
-              </button>
-            </form>
-          </div>
+          {isEditing && (
+            <div className="edit-photo">
+              <p>Editando:</p>
+              {editImage && (
+                <img src={`${uploads}/photos/${editImage}`} alt={editTitle} />
+              )}
+              <form onSubmit={handleUpdate}>
+                <input
+                  type="text"
+                  placeholder="Insira o novo título"
+                  onChange={(e) => setEditTitle(e.target.value)}
+                  value={editTitle || ""}
+                />
+                <input type="submit" value="Atualizar" />
+                <button
+                  className="cancel-btn"
+                  onClick={() => setIsEditing(false)}
+                >
+                  Cancelar edição
+                </button>
+              </form>
+            </div>
+          )}
 
           {errorPhoto && <Message msg={errorPhoto} type="error" />}
           {messagePhoto && <Message msg={messagePhoto} type="success" />}
