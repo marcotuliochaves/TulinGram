@@ -23,8 +23,8 @@ O projeto foi construído para demonstrar boas práticas no desenvolvimento **fu
 ## 📋 Funcionalidades  
 
 ### 🔐 Autenticação  
-- ✅ Registro e Login com autenticação **JWT**  
-- ✅ Logout automático quando o token expira  
+- ✅ Registro e Login com autenticação **JWT**
+- ✅ Logout automático quando o token expira
 - ✅ Proteção de rotas privadas  
 
 ### 📸 Publicações  
@@ -44,16 +44,18 @@ O projeto foi construído para demonstrar boas práticas no desenvolvimento **fu
 
 ## 🗺️ Roadmap  
 
-### 🚧 Em Desenvolvimento  
-- 🔄 Notificações em tempo real  
+### 🚧 Em Desenvolvimento   
 - 🔄 Internacionalização (**i18n**)  
-- 🔄 Suporte a tema claro/escuro  
+- 🔄 Suporte a tema claro/escuro
+- 🔄 Página de configurações
+- 🔄 Página de postagem de fotos
 
 ### 🔮 Futuras Implementações  
 - ⏳ Sistema de mensagens diretas  
 - ⏳ Stories (como no Instagram)  
 - ⏳ Busca avançada com filtros  
-- ⏳ Histórico de atividades  
+- ⏳ Histórico de atividades
+- ⏳ Notificações em tempo real 
 
 ---
 
