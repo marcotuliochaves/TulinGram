@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "react-toastify": "^11.0.5"
+  },
+  "devDependencies": {
+    "vite": "^7.1.3"
   }
 }
