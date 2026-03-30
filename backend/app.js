@@ -19,17 +19,33 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Solve CORS
-const corsOptions = {
-  origin: [
-    "http://localhost:5173",
-    "https://tulingram.vercel.app"
-  ],
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true,
-};
+const cors = require("cors");
 
-app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://tulingram.vercel.app"
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // permite requests sem origin (ex: Postman)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      } else {
+        return callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
+// 🔥 ESSENCIAL PRA PREFLIGHT
+app.options("*", cors());
 
 // Upload Directory
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
