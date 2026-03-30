@@ -19,15 +19,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Solve CORS
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5173",
-      "https://tulingram.vercel.app/"
-    ],
-    credentials: true,
-  })
-);
+const corsOptions = {
+  origin: [
+    "http://localhost:5173",
+    "https://tulingram.vercel.app"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 
 // Upload Directory
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
