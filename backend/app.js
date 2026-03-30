@@ -21,7 +21,10 @@ app.use(express.urlencoded({ extended: false }));
 // Solve CORS
 app.use(
   cors({
-    origin: "*",
+    origin: [
+      "http://localhost:5173",
+      "https://tulingramofc.vercel.app"
+    ],
     credentials: true,
   })
 );
