@@ -1,13 +1,5 @@
-<<<<<<< HEAD
 export const api = "https://tulingramofc.onrender.com/api";
 export const uploads = "https://tulingramofc.onrender.com/uploads";
-=======
-const BASE_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:5000";
-
-export const api = `${BASE_URL}/api`;
-export const uploads = `${BASE_URL}/uploads`;
->>>>>>> de0b5c0 (fix: cors production final)
 
 export const requestConfig = (method, data, token = null, image = null) => {
   let config;
