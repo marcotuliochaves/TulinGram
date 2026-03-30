@@ -23,7 +23,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://tulingramofc.vercel.app"
+      "https://tulingram.vercel.app/"
     ],
     credentials: true,
   })
