@@ -10,7 +10,7 @@ const conn = require("./config/db.js");
 //routes
 const router = require("./routes/Router.js");
 
-const port = process.env.PORT;
+const port = process.env.PORT || 5000;
 
 const app = express();
 
@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 // Solve CORS
 app.use(
   cors({
-    origin: ["https://localhost:3000", "http://localhost:5173"],
+    origin: "*",
     credentials: true,
   })
 );
