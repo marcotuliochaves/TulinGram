@@ -9,86 +9,100 @@
 
 ---
 
-Um clone simplificado do Instagram desenvolvido para portfólio, com foco em **React no frontend** e **Node.js + MongoDB no backend**.  
-O projeto foi construído para demonstrar boas práticas no desenvolvimento **full stack**, criação de **API REST**, **autenticação de usuários**, **upload de imagens** e integração entre cliente e servidor.
+Clone simplificado de uma rede social inspirado no Instagram, desenvolvido como projeto full stack para portfólio.
+
+O objetivo do projeto é demonstrar habilidades em desenvolvimento web completo, incluindo frontend moderno, criação de API REST, autenticação de usuários e integração com banco de dados.
 
 ---
 
 ## 🚀 Demonstração
 
-📌 **Status:** _Em desenvolvimento ativo_  
-⚡ Novas funcionalidades serão adicionadas em breve.
+👉 https://tulingram.vercel.app/
+
+📌 Status: Em desenvolvimento ativo  
+⚡ Novas funcionalidades sendo adicionadas continuamente
+---
+
+## 🧠 Tecnologias Utilizadas
+
+### Frontend
+- React
+- React Router DOM
+- Context API
+- CSS3
+
+### Backend
+- Node.js
+- Express
+- MongoDB + Mongoose
+- JWT (autenticação)
+- Multer + Cloudinary (upload de imagens)
+- Bcrypt (criptografia de senha)
 
 ---
 
-## 📋 Funcionalidades
+## ✨ Funcionalidades
 
 ### 🔐 Autenticação
-
-- ✅ Registro e Login com autenticação **JWT**
-- ✅ Logout automático quando o token expira
-- ✅ Proteção de rotas privadas
+- Registro e login com JWT
+- Proteção de rotas privadas
+- Logout automático por expiração de token
 
 ### 📸 Publicações
-
-- ✅ Postagem de imagens com título, descrição e tags
-- ✅ Upload com preview antes da postagem
-- ✅ Feed de publicações
+- Criação de posts com imagem, título e descrição
+- Upload com preview
+- Feed de publicações
 
 ### 💬 Interações
-
-- ✅ Comentários em publicações
-- ✅ Sistema de seguir/deixar de seguir usuários
+- Comentários em posts
+- Sistema de seguir/deixar de seguir usuários
 
 ### 👤 Perfil
-
-- ✅ Página de perfil personalizada
-- ✅ Estatísticas básicas (seguidores, seguindo, publicações)
+- Página de perfil personalizada
+- Estatísticas (seguidores, seguindo, publicações)
 
 ---
 
 ## 🗺️ Roadmap
 
-🏁 Concluído
+### ✅ Concluído
+- Feed de publicações
+- Upload de imagens com preview
+- Página de perfil
+- Sistema básico de interação
 
-- ✅ Página de postagem de fotos com formulário estilizado
-- ✅ Upload com preview antes da postagem
-- ✅ Feed de publicações
-- ✅ Página de perfil personalizada
+### 🚧 Em desenvolvimento
+- Internacionalização (i18n)
+- Tema claro/escuro
+- Página de configurações
 
-### 🚧 Em Desenvolvimento
-
-- 🔄 Internacionalização (**i18n**)
-- 🔄 Suporte a tema claro/escuro
-- 🔄 Página de configurações
-- 🔄 Página de postagem de fotos
-
-### 🔮 Futuras Implementações
-
-- ⏳ Sistema de mensagens diretas
-- ⏳ Stories (como no Instagram)
-- ⏳ Busca avançada com filtros
-- ⏳ Histórico de atividades
-- ⏳ Notificações em tempo real
+### 🔮 Futuro
+- Mensagens diretas (chat)
+- Stories
+- Notificações em tempo real
+- Busca avançada
+- Histórico de atividades
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## 📸 Preview
 
-### Frontend
+*(adicione prints aqui — MUITO importante)*
 
-- ⚛️ React
-- 🌐 React Router DOM
-- 🔔 Context API
-- 🎨 CSS3 (puro)
+Exemplo:
+![login](./assets/login.png)
+![feed](./assets/feed.png)
+![post](./assets/post.png)
 
-### Backend
+---
 
-- 🟢 Node.js + Express
-- 🍃 MongoDB + Mongoose
-- 🔐 JWT (JSON Web Token)
-- 📦 Multer + Cloudinary
-- 🔒 Bcrypt
+## 📚 Aprendizados
+ - Construção de API REST com Node.js
+ - Autenticação com JWT
+ - Upload de arquivos com Cloudinary
+ - Integração completa frontend/backend
+ - Organização de projeto full stack
+ - Deploy de aplicações web
 
 ---
 
@@ -123,5 +137,6 @@ O projeto foi construído para demonstrar boas práticas no desenvolvimento **fu
 
 Marco Túlio Oliveira  
 📍 Uberaba/MG – Brasil  
-🔗 LinkedIn
-| Portfólio
+🔗 LinkedIn: https://www.linkedin.com/in/marcotuliochaves
+🔗 GitHub: https://github.com/marcotuliochaves
+
