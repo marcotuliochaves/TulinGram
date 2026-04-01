@@ -1,19 +1,24 @@
 const multer = require("multer");
-const path = require("path");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require("../config/cloudinary");
 
+// Tipos permitidos (mantendo sua lógica)
 const allowedTypes = ["image/jpeg", "image/jpg", "image/png", "image/pjpeg"];
 
 const fileFilter = (req, file, cb) => {
   console.log("🧪 Tipo MIME recebido:", file.mimetype);
+
   if (allowedTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {
     cb(new Error("Tipo de arquivo não suportado"), false);
   }
 };
-// Destination to store image
-const imageStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
+
+// Storage no Cloudinary
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: (req, file) => {
     let folder = "";
 
     if (req.baseUrl.includes("users")) {
@@ -22,15 +27,15 @@ const imageStorage = multer.diskStorage({
       folder = "photos";
     }
 
-    cb(null, `uploads/${folder}/`);
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
+    return {
+      folder: `tulingram/${folder}`,
+      allowed_formats: ["jpg", "png", "jpeg", "webp"],
+    };
   },
 });
 
 const imageUpload = multer({
-  storage: imageStorage,
+  storage,
   fileFilter,
 });
 
