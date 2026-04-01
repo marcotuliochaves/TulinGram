@@ -8,7 +8,14 @@ const PhotoItem = ({ photo }) => {
   return (
     <div className="photo-item">
       {photo.image && (
-        <img src={`${uploads}/photos/${photo.image}`} alt={photo.title} />
+        <img
+          src={
+            photo.image.startsWith("http")
+              ? photo.image
+              : `${uploads}/photos/${photo.image}`
+          }
+          alt={photo.title}
+        />
       )}
       <h2>{photo.title}</h2>
       <p className="photo-author">

@@ -13,6 +13,7 @@ const generateToken = (id) => {
     expiresIn: "7d",
   });
 };
+
 // Register user and sign in
 const register = async (req, res) => {
   const { name, email, password } = req.body;
@@ -21,8 +22,7 @@ const register = async (req, res) => {
   const user = await User.findOne({ email });
 
   if (user) {
-    res.status(422).json({ errors: ["E-mail já cadastrado."] });
-    return;
+    return res.status(422).json({ errors: ["E-mail já cadastrado."] });
   }
 
   // Generate password hash
@@ -36,12 +36,10 @@ const register = async (req, res) => {
     password: passwordHash,
   });
 
-  // If user was created succesfully, return the token
   if (!newUser) {
-    res
-      .status(422)
-      .json({ errors: ["Houve um erro, por favor tente mais tarde."] });
-    return;
+    return res.status(422).json({
+      errors: ["Houve um erro, por favor tente mais tarde."],
+    });
   }
 
   res.status(201).json({
@@ -56,19 +54,18 @@ const login = async (req, res) => {
 
   const user = await User.findOne({ email });
 
-  //Check if user exists
+  // Check if user exists
   if (!user) {
-    res.status(404).json({ errors: ["Usuário não encontrado."] });
-    return;
+    return res.status(404).json({ errors: ["Usuário não encontrado."] });
   }
 
-  //Check if password matches
+  // Check if password matches
   if (!(await bcrypt.compare(password, user.password))) {
-    res.status(422).json({ errors: ["Senha inválida."] });
+    return res.status(422).json({ errors: ["Senha inválida."] });
   }
 
-  //Return user with token
-  res.status(201).json({
+  // Return user with token
+  res.status(200).json({
     _id: user._id,
     profileImage: user.profileImage,
     token: generateToken(user._id),
@@ -78,7 +75,6 @@ const login = async (req, res) => {
 // Get current logged in user
 const getCurrentUser = async (req, res) => {
   const user = req.user;
-
   res.status(200).json(user);
 };
 
@@ -88,8 +84,9 @@ const update = async (req, res) => {
 
   let profileImage = null;
 
+  // 🔥 CORREÇÃO AQUI (Cloudinary)
   if (req.file) {
-    profileImage = req.file.filename;
+    profileImage = req.file.path;
   }
 
   const reqUser = req.user;
@@ -97,15 +94,14 @@ const update = async (req, res) => {
   const user = await User.findById(
     new mongoose.Types.ObjectId(reqUser._id)
   ).select("-password");
+
   if (name) {
     user.name = name;
   }
 
   if (password) {
-    // Generate password hash
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
-
     user.password = passwordHash;
   }
 
@@ -125,7 +121,6 @@ const update = async (req, res) => {
 const getUserById = async (req, res) => {
   const { id } = req.params;
 
-  // Valida o formato do ObjectId
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ errors: ["ID inválido."] });
   }
